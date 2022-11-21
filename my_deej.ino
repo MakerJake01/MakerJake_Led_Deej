@@ -14,6 +14,7 @@ int analogSliderValues[NUM_SLIDERS];
 
 Adafruit_NeoPixel pixels(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
+//This array is used to light up the leds in the proper order as they are daisy chained in a back and forth pattern
 int ledOrder[36] = {5,4,3,2,1,0,6,7,8,9,10,11,17,16,15,14,13,12,18,19,20,21,22,23,29,28,27,26,25,24,30,31,32,33,34,35};
 
 void setup() { 
@@ -38,7 +39,7 @@ void loop() {
   }
   pixels.show();
 }
-
+//Premade deej function
 void updateSliderValues() {
   for (int i = 0; i < NUM_SLIDERS; i++) {
      analogSliderValues[i] = map(analogRead(analogInputs[i]),0,1023,1023,0);
@@ -46,7 +47,7 @@ void updateSliderValues() {
      //analogSliderValues[i] = 1023-analogRead(analogInputs[i]);
   }
 }
-
+//Premade deej function
 void sendSliderValues() {
   String builtString = String("");
 
@@ -59,7 +60,7 @@ void sendSliderValues() {
   }
   Serial.println(builtString);
 }
-
+//Premade deej function
 void printSliderValues() {
   for (int i = 0; i < NUM_SLIDERS; i++) {
     String printedString = String("Slider #") + String(i + 1) + String(": ") + String(analogSliderValues[i]) + String(" mV");
@@ -74,15 +75,16 @@ void printSliderValues() {
 }
 
 int ledColor(int led,int r, int g, int b){
+  //Int to change the color of an led
   pixels.setPixelColor(ledOrder[led],pixels.Color(r,g,b));
-  //pixels.setPixelColor(map(analogSliderValues[0],0,1023,6,0)-1, pixels.Color(100,100,100));
 }
 
 int mappedVal(int numSlide){
+  //This int returns the number of leds a silder is meant to have on
   int x; 
-  //x = map(analogSliderValues[numSlide],0,1023,0,6);
   x = analogSliderValues[numSlide]/170;
-  //x = analogSliderValues[numSlide]/204; 
+  //This if and else if is meant to stop any odd values from being returned
+  //there cant be -1 leds or more then 5
   if(x>5){
     x=5;
   }else if(x<0){

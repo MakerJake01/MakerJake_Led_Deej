@@ -2,6 +2,8 @@
 This is my version of the deej volume mixer with 6 sliders and led feedback
 Each slider has 6 leds assigned to it to show the approximate volume of the slider.
 
+![Imgur](https://i.imgur.com/WZrzhlA.jpg)
+
 I printed the top case out of a glow in the dark plastic to see the leds.
 
 Parts List
